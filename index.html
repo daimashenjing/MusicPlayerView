@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no"/>
+    <title>音乐播发器</title>
+    <link rel="stylesheet" href="css/2.0/common.css?v=1.0">
+    <link rel="stylesheet" href="css/2.0/music_play.css?v=2.0">
+    <script type='text/javascript' src='http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src='js/2.0/common.js'></script>
+    <script type="text/javascript" src='js/2.0/player.js'></script>
+</head>
+<body>
+<div class="title-fixed" id="title-fixed">
+    <header class="headerLayout" id="headerLayout">
+        <h2 class="menu-title">音乐播放器</h2>
+    </header>
+</div>
+<div class="content" id="content">
+    <div class="play-sikn">
+        <audio id="music-play" src="http://ws.stream.qqmusic.qq.com/C100001Qu4I30eVFYb.m4a?fromtag=38">
+            您的浏览器不支持 audio 标签。
+        </audio>
+        <span class="music-name">“ 梦的召唤 晚安曲[宝贝家] No.1 ”</span>
+
+        <div class="play-circle">
+            <img src="img/user_avatar_icon.jpg" class="play-head">
+        </div>
+        <div class="play-but">
+            <span class="play-last"></span>
+            <span class="play-pause" play="no"></span>
+            <span class="play-next"></span>
+        </div>
+        <p class="music-info"><span id="donorsName">天津宝贝家科技有限公司</span></p>
+        <!-- 进度条 -->
+        <div class="play-bar">
+            <p class="current-time bar-time">00:00</p>
+            <div class="play-pro">
+                <span id="songProgressBar" class="progress-bar bar"></span>
+                <span id="songProgressLoad" class="progress-bar load"></span>
+                <span id="songProgressCurrent" class="progress-bar current"></span>
+                <span id="songProgressClick" class="progress-bar click-bar"></span>
+                <span id="songProgressHideBar" class="progress-bar hide-bar"></span>
+            </div>
+            <p class="end-time bar-time">00:00</p>
+        </div>
+        <div class="cd_brush_head">
+            <div class="cd_brush">
+
+            </div>
+        </div>
+    </div>
+    <div class="text-title">
+        <span class="text-title-name">包含节目</span>
+        <span class="fine-line"></span>
+    </div>
+    <div class="details-content">
+        <ul class="music-list">
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    //播放列表
+    var playlist = [
+        {
+            "songName": "演员-薛之谦",
+            "donorsName": "天津XXX科技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C100001Qu4I30eVFYb.m4a?fromtag=38",
+            "coverImage": "https://y.gtimg.cn/music/photo_new/T002R150x150M000003y8dsH2wBHlo.jpg?max_age=2592000",
+            "sort": 0
+        },
+        {
+            "songName": "丑八怪-薛之谦",
+            "donorsName": "北京XXX技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C100000QwTVo0YHdcP.m4a?fromtag=38",
+            "coverImage": "https://y.gtimg.cn/music/photo_new/T002R150x150M000003y8dsH2wBHlo.jpg?max_age=2592000",
+            "sort": 1
+        },
+        {
+            "songName": "告白气球-14种语言",
+            "donorsName": "成都XXX科技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C10000480VxH1XXPcK.m4a?fromtag=38",
+            "coverImage": "",
+            "sort": 2
+        },{
+            "songName": "演员-薛之谦",
+            "donorsName": "天津XXX科技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C100001Qu4I30eVFYb.m4a?fromtag=38",
+            "coverImage": "https://y.gtimg.cn/music/photo_new/T002R150x150M000003y8dsH2wBHlo.jpg?max_age=2592000",
+            "sort": 3
+        },
+        {
+            "songName": "丑八怪-薛之谦",
+            "donorsName": "北京XXX技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C100000QwTVo0YHdcP.m4a?fromtag=38",
+            "coverImage": "https://y.gtimg.cn/music/photo_new/T002R150x150M000003y8dsH2wBHlo.jpg?max_age=2592000",
+            "sort": 4
+        },
+        {
+            "songName": "告白气球-14种语言",
+            "donorsName": "成都XXX科技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C10000480VxH1XXPcK.m4a?fromtag=38",
+            "coverImage": "",
+            "sort": 5
+        },{
+            "songName": "演员-薛之谦",
+            "donorsName": "天津XXX科技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C100001Qu4I30eVFYb.m4a?fromtag=38",
+            "coverImage": "https://y.gtimg.cn/music/photo_new/T002R150x150M000003y8dsH2wBHlo.jpg?max_age=2592000",
+            "sort": 6
+        },
+        {
+            "songName": "丑八怪-薛之谦",
+            "donorsName": "北京XXX技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C100000QwTVo0YHdcP.m4a?fromtag=38",
+            "coverImage": "https://y.gtimg.cn/music/photo_new/T002R150x150M000003y8dsH2wBHlo.jpg?max_age=2592000",
+            "sort": 7
+        },
+        {
+            "songName": "告白气球-14种语言",
+            "donorsName": "成都XXX科技有限公司",
+            "mp3": "http://ws.stream.qqmusic.qq.com/C10000480VxH1XXPcK.m4a?fromtag=38",
+            "coverImage": "",
+            "sort": 8
+        }
+    ];
+    var mMusicList = '';
+    $.each(playlist, function (index, value) {
+        mMusicList += '<li><input type="radio" class="radio" name="select-music" value="' +
+                index + '" id="check_' + index + '">' +
+                '<label for="check_' + index + '"></label>' +
+                '<div class="music-item">' +
+                '<div class="item-center">' +
+                '<div class="music-item-head">' +
+                '<img src="'+value.coverImage+'" onerror="this.src=\'img/user_avatar_icon.jpg\'" class="music-head-img">' +
+                '</div><p class="music-item-name">' + value.songName + '</p></div></div></li>'
+    });
+    $('.music-list').html(mMusicList);
+</script>
+</html>
